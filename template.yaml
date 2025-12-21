@@ -1,0 +1,44 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: devops-api-wrapper
+  title: DevOps Self-Service
+  description: Call internal DevOps API from Backstage
+spec:
+  owner: devops
+  type: service
+
+  parameters:
+    - title: Request
+      required:
+        - action
+        - environment
+      properties:
+        action:
+          title: Action
+          type: string
+          enum:
+            - create-namespace
+            - deploy-service
+        environment:
+          title: Environment
+          type: string
+          enum: [dev, staging, prod]
+        serviceName:
+          title: Service name
+          type: string
+
+  steps:
+    - id: call-devops-api
+      name: Call DevOps API
+      action: devops:call
+      input:
+        action: ${{ parameters.action }}
+        environment: ${{ parameters.environment }}
+        serviceName: ${{ parameters.serviceName }}
+
+  output:
+    text:
+      - title: Result
+        content: |
+          DevOps request submitted successfully.
