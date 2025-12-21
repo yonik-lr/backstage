@@ -8,4 +8,4 @@ spec:
   lifecycle: development
   owner: user:guest
   definition:
-    $text: http://devops-api.devops.svc.cluster.local:8080/latest/openapi.json
+    $text: http://localhost:7007/api/proxy/devops-api/latest/openapi.json
