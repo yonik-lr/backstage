@@ -31,8 +31,8 @@ spec:
           title: Image Tag
           type: string
           default: 1.74.0-release.9e9887f587
-        deploymentName:
-          title: Deployment name
+        deploymentType:
+          title: Deployment Type
           type: string
           enum:
             - saas
@@ -88,7 +88,7 @@ spec:
           envDb: ${{ parameters.envDb }}
           oneImageTag: ${{ parameters.oneImageTag }}
           imageTag: ${{ parameters.imageTag }}
-          deploymentName: ${{ parameters.deploymentName }}
+          deploymentType: ${{ parameters.deploymentType }}
           chartSource: ${{ parameters.chartSource }}
           githubBranch: ${{ parameters.githubBranch }}
           pathToChartFolder: ${{ parameters.pathToChartFolder }}
