@@ -59,18 +59,15 @@ spec:
         valuesYaml:
           title: values.yaml
           type: string
-          description: Helm values override file
-          ui:widget: codeEditor
+          ui:widget: textarea
           ui:options:
-            language: yaml
-            height: 300
+            rows: 15
           default: |
             deployments:
               artifacts:
                 image:
                   repository: yoni/artifacts-internal
                   tag: 1.71.4-release.e0272776a4
-
 
   steps:
     - id: call-devops-api
