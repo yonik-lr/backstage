@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: devops-api-wrapper
-  title: On demand environements
+  title: On demand environments
   description: Temporary environment in stage k8s cluster
 spec:
   owner: devops
