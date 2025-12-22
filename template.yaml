@@ -56,6 +56,17 @@ spec:
             - 2h
             - 4h
             - 8h
+        valuesYaml:
+          title: values.yaml
+          type: string
+          description: |
+            Paste your Helm values.yaml content here.
+          ui:widget: textarea
+          ui:options:
+            rows: 15
+          ui:help: |
+            This should be valid YAML. It will be passed as-is to the deployment.
+
 
   steps:
     - id: call-devops-api
@@ -70,6 +81,7 @@ spec:
         githubBranch: ${{ parameters.githubBranch }}
         pathToChartFolder: ${{ parameters.pathToChartFolder }}
         ttl: ${{ parameters.ttl }}
+        valuesYaml: ${{ parameters.valuesYaml }}
 
   output:
     text:
