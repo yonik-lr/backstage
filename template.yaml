@@ -11,8 +11,8 @@ spec:
   parameters:
     - title: Request
       required:
-        - action
-        - environment
+        - envDb
+        - imageTag
       properties:
         envDb:
           title: Env DB
@@ -44,7 +44,7 @@ spec:
           title: Github branch
           type: string
           default: main
-        pathToChartFolser:
+        pathToChartFolder:
           title: Path to chart folder
           type: string
           default: chart
@@ -59,12 +59,17 @@ spec:
 
   steps:
     - id: call-devops-api
-      name: Call DevOps API
+      name: On demand env
       action: devops:call
       input:
-        action: ${{ parameters.action }}
-        environment: ${{ parameters.environment }}
-        serviceName: ${{ parameters.serviceName }}
+        envDb: ${{ parameters.envDb }}
+        oneImageTag: ${{ parameters.oneImageTag }}
+        imageTag: ${{ parameters.imageTag }}
+        deploymentName: ${{ parameters.deploymentName }}
+        chartSource: ${{ parameters.chartSource }}
+        githubBranch: ${{ parameters.githubBranch }}
+        pathToChartFolder: ${{ parameters.pathToChartFolder }}
+        ttl: ${{ parameters.ttl }}
 
   output:
     text:
