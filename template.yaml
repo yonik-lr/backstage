@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: devops-api-wrapper
   title: DevOps Self-Service
-  description: Call internal DevOps API from Backstage
+  description: On demand and stuff
 spec:
   owner: devops
   type: service
