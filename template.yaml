@@ -77,17 +77,23 @@ spec:
   steps:
     - id: call-devops-api
       name: On demand env
-      action: devops:call
+      action: http:request
       input:
-        envDb: ${{ parameters.envDb }}
-        oneImageTag: ${{ parameters.oneImageTag }}
-        imageTag: ${{ parameters.imageTag }}
-        deploymentName: ${{ parameters.deploymentName }}
-        chartSource: ${{ parameters.chartSource }}
-        githubBranch: ${{ parameters.githubBranch }}
-        pathToChartFolder: ${{ parameters.pathToChartFolder }}
-        ttl: ${{ parameters.ttl }}
-        valuesYaml: ${{ parameters.valuesYaml }}
+        method: POST
+        url: http://ondemand-env-service.devops.svc.cluster.local:8080/envs/create
+        headers:
+          Content-Type: application/json
+        body:
+          envName: ${{ parameters.envName }}
+          envDb: ${{ parameters.envDb }}
+          oneImageTag: ${{ parameters.oneImageTag }}
+          imageTag: ${{ parameters.imageTag }}
+          deploymentName: ${{ parameters.deploymentName }}
+          chartSource: ${{ parameters.chartSource }}
+          githubBranch: ${{ parameters.githubBranch }}
+          pathToChartFolder: ${{ parameters.pathToChartFolder }}
+          ttl: ${{ parameters.ttl }}
+          valuesYaml: ${{ parameters.valuesYaml }}
 
   output:
     text:
