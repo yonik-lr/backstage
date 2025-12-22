@@ -59,13 +59,17 @@ spec:
         valuesYaml:
           title: values.yaml
           type: string
-          description: |
-            Paste your Helm values.yaml content here.
-          ui:widget: textarea
+          description: Helm values override file
+          ui:widget: codeEditor
           ui:options:
-            rows: 15
-          ui:help: |
-            This should be valid YAML. It will be passed as-is to the deployment.
+            language: yaml
+            height: 300
+          default: |
+            deployments:
+              artifacts:
+                image:
+                  repository: yoni/artifacts-internal
+                  tag: 1.71.4-release.e0272776a4
 
 
   steps:
