@@ -14,19 +14,48 @@ spec:
         - action
         - environment
       properties:
-        action:
-          title: Action
+        envDb:
+          title: Env DB
           type: string
           enum:
-            - create-namespace
-            - deploy-service
-        environment:
-          title: Environment
+            - db-local
+            - rds
+        oneImageTag:
+          title: One Image Tag
+          type: boolean
+          default: true
+        imageTag:
+          title: Image Tag
           type: string
-          enum: [dev, staging, prod]
-        serviceName:
-          title: Service name
+        deploymentName:
+          title: Deployment name
           type: string
+          enum:
+            - saas
+            - single-tenant
+            - on-prem
+        chartSource:
+          title: Chart Source
+          type: string
+          enum:
+            - helm-repo
+            - github-branch
+        githubBranch:
+          title: Github branch
+          type: string
+          default: main
+        pathToChartFolser:
+          title: Path to chart folder
+          type: string
+          default: chart
+        ttl:
+          title: TTL
+          type: string
+          enum:
+            - 1h
+            - 2h
+            - 4h
+            - 8h
 
   steps:
     - id: call-devops-api
