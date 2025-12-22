@@ -77,23 +77,33 @@ spec:
   steps:
     - id: call-devops-api
       name: On demand env
-      action: http:request
+      action: shell:execute
       input:
-        method: POST
-        url: http://ondemand-env-service.devops.svc.cluster.local:8080/envs/create
-        headers:
-          Content-Type: application/json
-        body:
-          envName: ${{ parameters.envName }}
-          envDb: ${{ parameters.envDb }}
-          oneImageTag: ${{ parameters.oneImageTag }}
-          imageTag: ${{ parameters.imageTag }}
-          deploymentType: ${{ parameters.deploymentType }}
-          chartSource: ${{ parameters.chartSource }}
-          githubBranch: ${{ parameters.githubBranch }}
-          pathToChartFolder: ${{ parameters.pathToChartFolder }}
-          ttl: ${{ parameters.ttl }}
-          valuesYaml: ${{ parameters.valuesYaml }}
+        command: |
+          python3 <<EOF
+          import json
+          import urllib.request
+          
+          data = {
+              "envName": """${{ parameters.envName }}""",
+              "envDb": """${{ parameters.envDb }}""",
+              "oneImageTag": ${{ parameters.oneImageTag }},
+              "imageTag": """${{ parameters.imageTag }}""",
+              "deploymentType": """${{ parameters.deploymentType }}""",
+              "chartSource": """${{ parameters.chartSource }}""",
+              "githubBranch": """${{ parameters.githubBranch }}""",
+              "pathToChartFolder": """${{ parameters.pathToChartFolder }}""",
+              "ttl": """${{ parameters.ttl }}""",
+              "valuesYaml": """${{ parameters.valuesYaml }}"""
+          }
+          
+          req = urllib.request.Request(
+              'http://ondemand-env-service.devops.svc.cluster.local:8080/envs/create',
+              data=json.dumps(data).encode('utf-8'),
+              headers={'Content-Type': 'application/json'}
+          )
+          urllib.request.urlopen(req)
+          EOF
 
   output:
     text:
