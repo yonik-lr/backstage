@@ -11,8 +11,15 @@ spec:
   parameters:
     - title: Request
       required:
+        - envName
         - envDb
         - imageTag
+        - deploymentType
+        - chartSource
+        - githubBranch
+        - pathToChartFolder
+        - ttl
+        - valuesYaml
       properties:
         envName:
           title: Environment Name
@@ -75,6 +82,11 @@ spec:
                   tag: 1.74.0-release.9e9887f587
 
   steps:
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: Created the manifest for the ${{ parameters.envName }} on demand environment.
     - id: call-devops-api
       name: On demand env
       action: http:post
